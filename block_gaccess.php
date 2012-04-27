@@ -129,7 +129,7 @@ class block_gaccess extends block_list {
 
         $newwinlnk = get_config('blocks/gaccess','newwinlink');
         if ($newwinlnk) {
-            $target = 'target=\"_new\"';
+            $target = 'target="_blank"';
         }
         else {
             $target = '';
@@ -138,13 +138,16 @@ class block_gaccess extends block_list {
         foreach ($google_services as $gs) {
 
             if (!empty($gs['icon_name'])) {
-                $icon = "<img src=\"".$OUTPUT->pix_url($gs['icon_name'], 'block_gaccess')."\" alt=\"".$gs['service']."\" />";
+                $icon = "<img style=\"vertical-align: top; margin-right: 6px;\" src=\"".
+                    $OUTPUT->pix_url($gs['icon_name'], 'block_gaccess')."\" alt=\"".$gs['service']."\" />";
             }
             else {
                 // Default to a check graphic
-                $icon = "<img src=\"".$OUTPUT->pix_url('i/tick_green_small')."\" alt=\"$service\" />";
+                $icon = "<img style=\"vertical-align: top; margin-right: 6px;\" src=\"".
+                    $OUTPUT->pix_url('i/tick_green_small')."\" alt=\"$service\" />";
             }
-            $this->content->items[] = "<a ".$target.". title=\"".$gs['service']."\"  href=\"".$gs['relayurl']."\">".$icon . '&nbsp;' . $gs['service']."</a>";
+            $this->content->items[] = "<div style=\"margin: 3px 0;\"><a ".$target." title=\"".
+                $gs['service']."\"  href=\"".$gs['relayurl']."\">".$icon.$gs['service']."</a></div>";
         }
 
         return $this->content;
